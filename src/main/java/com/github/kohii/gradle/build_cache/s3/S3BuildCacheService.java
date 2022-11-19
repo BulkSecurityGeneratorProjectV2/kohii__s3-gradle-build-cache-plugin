@@ -20,6 +20,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
 
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
@@ -82,7 +83,7 @@ public class S3BuildCacheService implements BuildCacheService {
         }
       } else {
         // Use a temporary file to transfer the object
-        File file = File.createTempFile("s3-gradle-build-cache-plugin", ".tmp");
+        File file = Files.createTempFile("s3-gradle-build-cache-plugin", ".tmp").toFile();
         try (FileOutputStream os = new FileOutputStream(file)) {
           buildCacheEntryWriter.writeTo(os);
 
